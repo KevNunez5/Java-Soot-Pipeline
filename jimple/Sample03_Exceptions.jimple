@@ -1,0 +1,59 @@
+/*
+ * Jimple IR — Sample03_Exceptions
+ * Categoría: Excepciones — try/catch/finally, custom exceptions
+ * NOTA CLAVE vs LLVM IR: Soot maneja excepciones con "catch" nativo.
+ * No requiere ABI C++, personality functions ni @__cxa_throw.
+ */
+
+public class Sample03_Exceptions extends java.lang.Object
+{
+    public static int divide(int, int)
+    {
+        int i0, i1, $i2;
+        java.lang.ArithmeticException $r0;
+
+        i0 := @parameter0: int;
+        i1 := @parameter1: int;
+
+        if i1 != 0 goto label_ok;
+
+        /* throw — Soot lo representa directamente, sin landingpad */
+        $r0 = new java.lang.ArithmeticException;
+        specialinvoke $r0.<java.lang.ArithmeticException: void <init>(java.lang.String)>(
+            "División por cero no permitida");
+        throw $r0;
+
+     label_ok:
+        $i2 = i0 / i1;
+        return $i2;
+    }
+
+    public static void main(java.lang.String[])
+    {
+        java.lang.String[] r0;
+        int $i0;
+        java.lang.ArithmeticException $r1;
+
+        r0 := @parameter0: java.lang.String[];
+
+     label_try_start:
+        $i0 = staticinvoke <Sample03_Exceptions: int divide(int,int)>(10, 2);
+        staticinvoke <java.lang.System: java.io.PrintStream out>.<java.io.PrintStream: void println(java.lang.String)>(
+            "10 / 2 = " + (java.lang.String) $i0);
+        staticinvoke <Sample03_Exceptions: int divide(int,int)>(5, 0);
+        goto label_finally;
+
+        /* catch — bloque natural en Jimple, sin necesidad de ABI externo */
+     catch java.lang.ArithmeticException from label_try_start to label_finally with label_catch;
+
+     label_catch:
+        $r1 := @caughtexception;
+        staticinvoke <java.lang.System: java.io.PrintStream out>.<java.io.PrintStream: void println(java.lang.String)>(
+            "Capturado: " + virtualinvoke $r1.<java.lang.Throwable: java.lang.String getMessage()>());
+
+     label_finally:
+        staticinvoke <java.lang.System: java.io.PrintStream out>.<java.io.PrintStream: void println(java.lang.String)>(
+            "Bloque finally ejecutado");
+        return;
+    }
+}

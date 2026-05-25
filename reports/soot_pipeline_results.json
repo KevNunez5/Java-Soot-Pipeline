@@ -1,0 +1,322 @@
+[
+  {
+    "name": "Sample01_Basic",
+    "category": "Básico",
+    "description": "variables, loops, aritmética",
+    "javac": {
+      "step": "javac",
+      "success": true,
+      "stderr": ""
+    },
+    "soot": {
+      "step": "soot",
+      "success": false,
+      "error": "soot.jar no encontrado en C:\\Users\\Nivek\\Downloads\\Last Edmodo Go\\Codigo\\JAVA_IR\\java_soot_pipeline\\soot.jar\nDescarga desde: https://repo1.maven.org/maven2/org/soot-oss/soot/4.3.0/soot-4.3.0-jar-with-dependencies.jar\nRenómbralo a soot.jar y colócalo en: C:\\Users\\Nivek\\Downloads\\Last Edmodo Go\\Codigo\\JAVA_IR\\java_soot_pipeline",
+      "command": "java -jar soot.jar -cp C:\\Users\\Nivek\\Downloads\\Last Edmodo Go\\Codigo\\JAVA_IR\\java_soot_pipeline\\bytecode -f jimple -d C:\\Users\\Nivek\\Downloads\\Last Edmodo Go\\Codigo\\JAVA_IR\\java_soot_pipeline\\jimple -pp Sample01_Basic"
+    },
+    "analysis": {
+      "step": "analyze",
+      "success": true,
+      "line_count": 91,
+      "patterns": {
+        "staticinvoke": {
+          "count": 6,
+          "desc": "Llamadas estáticas"
+        },
+        "specialinvoke": {
+          "count": 1,
+          "desc": "Constructores / super calls"
+        },
+        "newarray": {
+          "count": 1,
+          "desc": "Creación de arrays"
+        },
+        "goto": {
+          "count": 4,
+          "desc": "Saltos de control de flujo"
+        },
+        "if ": {
+          "count": 2,
+          "desc": "Condicionales"
+        }
+      },
+      "invoke_types": {
+        "staticinvoke": 6,
+        "specialinvoke": 1
+      },
+      "unique_classes": [
+        "Sample01_Basic",
+        "java.io.PrintStream",
+        "java.lang.Object",
+        "java.lang.System"
+      ],
+      "method_count": 8
+    },
+    "vs_llvm": {
+      "llvm_lines": 33,
+      "jimple_advantage": "Control de flujo idéntico, sin diferencias",
+      "llvm_limitation": "System.out.println requiere stub externo",
+      "jimple_advantage_detail": "staticinvoke preserva llamadas a Java stdlib real"
+    }
+  },
+  {
+    "name": "Sample02_OOP",
+    "category": "OOP",
+    "description": "clases, herencia, polimorfismo",
+    "javac": {
+      "step": "javac",
+      "success": true,
+      "stderr": ""
+    },
+    "soot": {
+      "step": "soot",
+      "success": false,
+      "error": "soot.jar no encontrado en C:\\Users\\Nivek\\Downloads\\Last Edmodo Go\\Codigo\\JAVA_IR\\java_soot_pipeline\\soot.jar\nDescarga desde: https://repo1.maven.org/maven2/org/soot-oss/soot/4.3.0/soot-4.3.0-jar-with-dependencies.jar\nRenómbralo a soot.jar y colócalo en: C:\\Users\\Nivek\\Downloads\\Last Edmodo Go\\Codigo\\JAVA_IR\\java_soot_pipeline",
+      "command": "java -jar soot.jar -cp C:\\Users\\Nivek\\Downloads\\Last Edmodo Go\\Codigo\\JAVA_IR\\java_soot_pipeline\\bytecode -f jimple -d C:\\Users\\Nivek\\Downloads\\Last Edmodo Go\\Codigo\\JAVA_IR\\java_soot_pipeline\\jimple -pp Sample02_OOP"
+    },
+    "analysis": {
+      "step": "analyze",
+      "success": true,
+      "line_count": 72,
+      "patterns": {
+        "virtualinvoke": {
+          "count": 3,
+          "desc": "Llamadas virtuales (polimorfismo)"
+        },
+        "staticinvoke": {
+          "count": 1,
+          "desc": "Llamadas estáticas"
+        },
+        "specialinvoke": {
+          "count": 2,
+          "desc": "Constructores / super calls"
+        }
+      },
+      "invoke_types": {
+        "virtualinvoke": 3,
+        "staticinvoke": 1,
+        "specialinvoke": 2
+      },
+      "unique_classes": [
+        "Sample02_OOP$Circle",
+        "Sample02_OOP$Rectangle",
+        "Sample02_OOP$Shape",
+        "java.lang.Math",
+        "java.lang.Object"
+      ],
+      "method_count": 6
+    },
+    "vs_llvm": {
+      "llvm_lines": 16,
+      "jimple_advantage": "virtualinvoke preserva dispatch dinámico sin vtable manual",
+      "llvm_limitation": "Requería struct Shape + function pointers manuales",
+      "jimple_advantage_detail": "Herencia visible como extends en Jimple directamente"
+    }
+  },
+  {
+    "name": "Sample03_Exceptions",
+    "category": "Excepciones",
+    "description": "try/catch/finally",
+    "javac": {
+      "step": "javac",
+      "success": true,
+      "stderr": ""
+    },
+    "soot": {
+      "step": "soot",
+      "success": false,
+      "error": "soot.jar no encontrado en C:\\Users\\Nivek\\Downloads\\Last Edmodo Go\\Codigo\\JAVA_IR\\java_soot_pipeline\\soot.jar\nDescarga desde: https://repo1.maven.org/maven2/org/soot-oss/soot/4.3.0/soot-4.3.0-jar-with-dependencies.jar\nRenómbralo a soot.jar y colócalo en: C:\\Users\\Nivek\\Downloads\\Last Edmodo Go\\Codigo\\JAVA_IR\\java_soot_pipeline",
+      "command": "java -jar soot.jar -cp C:\\Users\\Nivek\\Downloads\\Last Edmodo Go\\Codigo\\JAVA_IR\\java_soot_pipeline\\bytecode -f jimple -d C:\\Users\\Nivek\\Downloads\\Last Edmodo Go\\Codigo\\JAVA_IR\\java_soot_pipeline\\jimple -pp Sample03_Exceptions"
+    },
+    "analysis": {
+      "step": "analyze",
+      "success": true,
+      "line_count": 59,
+      "patterns": {
+        "virtualinvoke": {
+          "count": 1,
+          "desc": "Llamadas virtuales (polimorfismo)"
+        },
+        "staticinvoke": {
+          "count": 5,
+          "desc": "Llamadas estáticas"
+        },
+        "specialinvoke": {
+          "count": 1,
+          "desc": "Constructores / super calls"
+        },
+        "throw": {
+          "count": 3,
+          "desc": "Lanzamiento de excepciones"
+        },
+        "catch": {
+          "count": 5,
+          "desc": "Captura de excepciones"
+        },
+        "goto": {
+          "count": 2,
+          "desc": "Saltos de control de flujo"
+        },
+        "if ": {
+          "count": 1,
+          "desc": "Condicionales"
+        }
+      },
+      "invoke_types": {
+        "virtualinvoke": 1,
+        "staticinvoke": 5,
+        "specialinvoke": 1
+      },
+      "unique_classes": [
+        "Sample03_Exceptions",
+        "java.io.PrintStream",
+        "java.lang.ArithmeticException",
+        "java.lang.System",
+        "java.lang.Throwable"
+      ],
+      "method_count": 6
+    },
+    "vs_llvm": {
+      "llvm_lines": 16,
+      "jimple_advantage": "catch nativo — no requiere ABI C++ ni @__cxa_throw",
+      "llvm_limitation": "throw → ret -1 stub, try/catch no representado",
+      "jimple_advantage_detail": "@caughtexception y catch blocks son primitivas Jimple"
+    }
+  },
+  {
+    "name": "Sample04_Collections",
+    "category": "Colecciones",
+    "description": "generics, ArrayList, HashMap",
+    "javac": {
+      "step": "javac",
+      "success": true,
+      "stderr": ""
+    },
+    "soot": {
+      "step": "soot",
+      "success": false,
+      "error": "soot.jar no encontrado en C:\\Users\\Nivek\\Downloads\\Last Edmodo Go\\Codigo\\JAVA_IR\\java_soot_pipeline\\soot.jar\nDescarga desde: https://repo1.maven.org/maven2/org/soot-oss/soot/4.3.0/soot-4.3.0-jar-with-dependencies.jar\nRenómbralo a soot.jar y colócalo en: C:\\Users\\Nivek\\Downloads\\Last Edmodo Go\\Codigo\\JAVA_IR\\java_soot_pipeline",
+      "command": "java -jar soot.jar -cp C:\\Users\\Nivek\\Downloads\\Last Edmodo Go\\Codigo\\JAVA_IR\\java_soot_pipeline\\bytecode -f jimple -d C:\\Users\\Nivek\\Downloads\\Last Edmodo Go\\Codigo\\JAVA_IR\\java_soot_pipeline\\jimple -pp Sample04_Collections"
+    },
+    "analysis": {
+      "step": "analyze",
+      "success": true,
+      "line_count": 58,
+      "patterns": {
+        "virtualinvoke": {
+          "count": 1,
+          "desc": "Llamadas virtuales (polimorfismo)"
+        },
+        "interfaceinvoke": {
+          "count": 7,
+          "desc": "Llamadas a interfaces (colecciones, streams)"
+        },
+        "staticinvoke": {
+          "count": 2,
+          "desc": "Llamadas estáticas"
+        },
+        "specialinvoke": {
+          "count": 2,
+          "desc": "Constructores / super calls"
+        },
+        "checkcast": {
+          "count": 3,
+          "desc": "Casteos de tipo (type erasure)"
+        },
+        "goto": {
+          "count": 3,
+          "desc": "Saltos de control de flujo"
+        },
+        "if ": {
+          "count": 2,
+          "desc": "Condicionales"
+        },
+        "new java.util": {
+          "count": 2,
+          "desc": "Instanciación de colecciones JDK"
+        }
+      },
+      "invoke_types": {
+        "virtualinvoke": 1,
+        "interfaceinvoke": 7,
+        "staticinvoke": 2,
+        "specialinvoke": 2
+      },
+      "unique_classes": [
+        "java.lang.Comparable",
+        "java.lang.Integer",
+        "java.util.ArrayList",
+        "java.util.HashMap",
+        "java.util.Iterator",
+        "java.util.List",
+        "java.util.Map"
+      ],
+      "method_count": 3
+    },
+    "vs_llvm": {
+      "llvm_lines": 17,
+      "jimple_advantage": "java.util.ArrayList/HashMap usados directamente via interfaceinvoke",
+      "llvm_limitation": "ArrayList reimplementado como struct {i8**, i32, i32}",
+      "jimple_advantage_detail": "Type erasure visible pero controlado (checkcast explícito)"
+    }
+  },
+  {
+    "name": "Sample05_Lambdas",
+    "category": "Lambdas",
+    "description": "lambda, Stream API, invokedynamic",
+    "javac": {
+      "step": "javac",
+      "success": true,
+      "stderr": ""
+    },
+    "soot": {
+      "step": "soot",
+      "success": false,
+      "error": "soot.jar no encontrado en C:\\Users\\Nivek\\Downloads\\Last Edmodo Go\\Codigo\\JAVA_IR\\java_soot_pipeline\\soot.jar\nDescarga desde: https://repo1.maven.org/maven2/org/soot-oss/soot/4.3.0/soot-4.3.0-jar-with-dependencies.jar\nRenómbralo a soot.jar y colócalo en: C:\\Users\\Nivek\\Downloads\\Last Edmodo Go\\Codigo\\JAVA_IR\\java_soot_pipeline",
+      "command": "java -jar soot.jar -cp C:\\Users\\Nivek\\Downloads\\Last Edmodo Go\\Codigo\\JAVA_IR\\java_soot_pipeline\\bytecode -f jimple -d C:\\Users\\Nivek\\Downloads\\Last Edmodo Go\\Codigo\\JAVA_IR\\java_soot_pipeline\\jimple -pp Sample05_Lambdas"
+    },
+    "analysis": {
+      "step": "analyze",
+      "success": true,
+      "line_count": 61,
+      "patterns": {
+        "virtualinvoke": {
+          "count": 1,
+          "desc": "Llamadas virtuales (polimorfismo)"
+        },
+        "interfaceinvoke": {
+          "count": 8,
+          "desc": "Llamadas a interfaces (colecciones, streams)"
+        },
+        "staticinvoke": {
+          "count": 2,
+          "desc": "Llamadas estáticas"
+        },
+        "dynamicinvoke": {
+          "count": 2,
+          "desc": "Lambdas / invokedynamic"
+        }
+      },
+      "invoke_types": {
+        "virtualinvoke": 1,
+        "interfaceinvoke": 8,
+        "staticinvoke": 2,
+        "dynamicinvoke": 2
+      },
+      "unique_classes": [
+        "Sample05_Lambdas$MathOperation",
+        "java.util.Arrays",
+        "java.util.Collection",
+        "java.util.stream.Collectors",
+        "java.util.stream.Stream"
+      ],
+      "method_count": 5
+    },
+    "vs_llvm": {
+      "llvm_lines": 13,
+      "jimple_advantage": "invokedynamic → dynamicinvoke + lambda$N sintéticos — representable",
+      "llvm_limitation": "invokedynamic sin equivalente en LLVM IR — limitación crítica",
+      "jimple_advantage_detail": "Stream API preservada como cadena de interfaceinvoke reales"
+    }
+  }
+]

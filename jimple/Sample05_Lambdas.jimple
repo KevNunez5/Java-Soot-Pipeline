@@ -1,0 +1,61 @@
+/*
+ * Jimple IR — Sample05_Lambdas
+ * Categoría: Lambdas, Stream API, invokedynamic
+ * NOTA CLAVE vs LLVM IR: Soot sí puede representar invokedynamic.
+ * Las lambdas se convierten en clases sintéticas anónimas (lambda$0, lambda$1...).
+ * Stream API se representa como cadena de interfaceinvoke reales.
+ */
+
+public class Sample05_Lambdas extends java.lang.Object
+{
+    /* Lambda sintética generada por Soot — cada lambda se convierte en método estático */
+    private static int lambda$main$0(int, int)
+    {
+        int i0, i1;
+        i0 := @parameter0: int;
+        i1 := @parameter1: int;
+        return i0 + i1;   /* (a, b) -> a + b */
+    }
+
+    private static int lambda$main$1(int, int)
+    {
+        int i0, i1;
+        i0 := @parameter0: int;
+        i1 := @parameter1: int;
+        return i0 * i1;   /* (a, b) -> a * b */
+    }
+
+    public static int apply(int, int, Sample05_Lambdas$MathOperation)
+    {
+        int i0, i1, $i2;
+        Sample05_Lambdas$MathOperation r0;
+        i0 := @parameter0: int;
+        i1 := @parameter1: int;
+        r0 := @parameter2: Sample05_Lambdas$MathOperation;
+        /* invokedynamic → interfaceinvoke sobre la clase sintética */
+        $i2 = interfaceinvoke r0.<Sample05_Lambdas$MathOperation: int operate(int,int)>(i0, i1);
+        return $i2;
+    }
+
+    public static void main(java.lang.String[])
+    {
+        java.util.List $r0; java.util.stream.Stream $r1; java.util.List $r2;
+
+        /* Stream API — Soot lo representa como cadena de virtualinvoke/interfaceinvoke */
+        $r0 = staticinvoke <java.util.Arrays: java.util.List asList(java.lang.Object[])>(...);
+
+        $r1 = interfaceinvoke $r0.<java.util.Collection: java.util.stream.Stream stream()>();
+        /* .filter(n -> n % 2 == 0) — lambda como clase sintética */
+        $r1 = interfaceinvoke $r1.<java.util.stream.Stream: java.util.stream.Stream filter(
+            java.util.function.Predicate)>(
+            dynamicinvoke "lambda$main$2" ...);   /* invokedynamic → dynamicinvoke en Jimple */
+        /* .map(n -> n * n) */
+        $r1 = interfaceinvoke $r1.<java.util.stream.Stream: java.util.stream.Stream map(
+            java.util.function.Function)>(
+            dynamicinvoke "lambda$main$3" ...);
+        $r2 = interfaceinvoke $r1.<java.util.stream.Stream: java.lang.Object collect(
+            java.util.stream.Collector)>(
+            staticinvoke <java.util.stream.Collectors: java.util.stream.Collector toList()>());
+        return;
+    }
+}

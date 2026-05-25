@@ -1,0 +1,72 @@
+/*
+ * Jimple IR — Sample02_OOP
+ * Categoría: OOP — herencia, polimorfismo, métodos virtuales
+ * NOTA CLAVE vs LLVM IR: Soot preserva el modelo OOP de Java.
+ * invokevirtual se mantiene como virtualinvoke — no hay vtable manual.
+ */
+
+public abstract class Sample02_OOP$Shape extends java.lang.Object
+{
+    protected java.lang.String color;
+
+    public void <init>(java.lang.String)
+    {
+        Sample02_OOP$Shape r0; java.lang.String r1;
+        r0 := @this: Sample02_OOP$Shape;
+        r1 := @parameter0: java.lang.String;
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+        r0.<Sample02_OOP$Shape: java.lang.String color> = r1;
+        return;
+    }
+
+    public abstract double area();
+
+    public java.lang.String describe()
+    {
+        Sample02_OOP$Shape r0; double $d0; java.lang.String $r1;
+        r0 := @this: Sample02_OOP$Shape;
+        /* virtualinvoke — Soot mantiene dispatch dinámico intacto */
+        $d0 = virtualinvoke r0.<Sample02_OOP$Shape: double area()>();
+        $r1 = r0.<Sample02_OOP$Shape: java.lang.String color>;
+        return $r1 + " shape with area " + (java.lang.String) $d0;
+    }
+}
+
+public class Sample02_OOP$Circle extends Sample02_OOP$Shape
+{
+    private double radius;
+
+    public void <init>(java.lang.String, double)
+    {
+        Sample02_OOP$Circle r0; java.lang.String r1; double d0;
+        r0 := @this: Sample02_OOP$Circle;
+        r1 := @parameter0: java.lang.String;
+        d0 := @parameter1: double;
+        specialinvoke r0.<Sample02_OOP$Shape: void <init>(java.lang.String)>(r1);
+        r0.<Sample02_OOP$Circle: double radius> = d0;
+        return;
+    }
+
+    public double area()
+    {
+        Sample02_OOP$Circle r0; double $d0, $d1;
+        r0 := @this: Sample02_OOP$Circle;
+        $d0 = r0.<Sample02_OOP$Circle: double radius>;
+        $d1 = staticinvoke <java.lang.Math: double PI>; /* 3.14159... */
+        return $d1 * $d0 * $d0;
+    }
+}
+
+public class Sample02_OOP$Rectangle extends Sample02_OOP$Shape
+{
+    private double width; private double height;
+
+    public double area()
+    {
+        Sample02_OOP$Rectangle r0; double $d0, $d1;
+        r0 := @this: Sample02_OOP$Rectangle;
+        $d0 = r0.<Sample02_OOP$Rectangle: double width>;
+        $d1 = r0.<Sample02_OOP$Rectangle: double height>;
+        return $d0 * $d1;
+    }
+}

@@ -1,0 +1,91 @@
+/*
+ * Jimple IR — Sample01_Basic
+ * Generado por: Soot 4.3.0 (referencia — ejecutar pipeline.py en tu máquina para regenerar)
+ * Fuente: Sample01_Basic.class (compilado con javac 21)
+ */
+
+public class Sample01_Basic extends java.lang.Object
+{
+    public void <init>()
+    {
+        Sample01_Basic r0;
+        r0 := @this: Sample01_Basic;
+        specialinvoke r0.<java.lang.Object: void <init>()>();
+        return;
+    }
+
+    public static int factorial(int)
+    {
+        int i0, $i1, $i2, $i3;
+
+        i0 := @parameter0: int;
+        $i1 = 1;          /* result = 1 */
+        $i2 = 2;          /* i = 2 */
+
+     label1:
+        if $i2 > i0 goto label2;   /* if i > n goto exit */
+        $i3 = $i1 * $i2;            /* result = result * i */
+        $i1 = $i3;
+        $i2 = $i2 + 1;              /* i++ */
+        goto label1;
+
+     label2:
+        return $i1;
+    }
+
+    public static double sumArray(int[])
+    {
+        int[] r0;
+        double $d0;
+        int $i0, $i1, $i2;
+
+        r0 := @parameter0: int[];
+        $d0 = 0.0;
+        $i0 = 0;
+
+     label1:
+        $i1 = lengthof r0;
+        if $i0 >= $i1 goto label2;
+        $i2 = r0[$i0];
+        $d0 = $d0 + (double) $i2;
+        $i0 = $i0 + 1;
+        goto label1;
+
+     label2:
+        return $d0;
+    }
+
+    public static void main(java.lang.String[])
+    {
+        java.lang.String[] r0;
+        int $i0, $i1, $i2, $i3, $i4;
+        double $d0;
+        int[] $r1;
+
+        r0 := @parameter0: java.lang.String[];
+
+        /* Aritmética básica */
+        $i0 = 10; $i1 = 3;
+        $i2 = $i0 + $i1;
+        staticinvoke <java.lang.System: java.io.PrintStream out>.<java.io.PrintStream: void println(java.lang.String)>(
+            "Suma: " + (java.lang.String) $i2);
+
+        $i3 = $i0 * $i1;
+        staticinvoke <java.lang.System: java.io.PrintStream out>.<java.io.PrintStream: void println(java.lang.String)>(
+            "Producto: " + (java.lang.String) $i3);
+
+        /* Factorial */
+        $i4 = staticinvoke <Sample01_Basic: int factorial(int)>(5);
+        staticinvoke <java.lang.System: java.io.PrintStream out>.<java.io.PrintStream: void println(java.lang.String)>(
+            "Factorial de 5: " + (java.lang.String) $i4);
+
+        /* Array */
+        $r1 = newarray (int)[5];
+        $r1[0] = 1; $r1[1] = 2; $r1[2] = 3; $r1[3] = 4; $r1[4] = 5;
+        $d0 = staticinvoke <Sample01_Basic: double sumArray(int[])>($r1);
+        staticinvoke <java.lang.System: java.io.PrintStream out>.<java.io.PrintStream: void println(java.lang.String)>(
+            "Suma del array: " + (java.lang.String) $d0);
+
+        return;
+    }
+}
